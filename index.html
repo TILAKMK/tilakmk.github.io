@@ -13,8 +13,7 @@
     --surface2: #161616;
     --border: rgba(255,255,255,0.08);
     --text: #ffffff; 
-
-/* Change Line 16 */
+    --muted: #cec6c6;
     --accent: #c8ff00;
     --accent2: #ff4545;
     --accent3: #00d4ff;
@@ -25,7 +24,11 @@
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  html { scroll-behavior: smooth; }
+  html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+    -webkit-text-size-adjust: 100%;
+  }
 
   body {
    background: var(--bg);
@@ -35,6 +38,8 @@
    overflow-x: hidden;
    cursor: none;
    min-height: 100vh;
+    width: 100%;
+    max-width: 100%;
   }
 
   /* CUSTOM CURSOR */
@@ -62,9 +67,16 @@
     display: flex;
     align-items: center;
     gap: 15px;
+    min-width: 0;
   }
+  .contact-item > div,
+  .discord-wrapper > div { min-width: 0; }
   /* LAYOUT */
-  .container { max-width: 1200px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 40px); }
+  .container {
+    width: min(1200px, 100%);
+    margin: 0 auto;
+    padding: 0 clamp(16px, 3.2vw, 34px);
+  }
 
   /* NAV */
   nav {
@@ -227,7 +239,7 @@
   }
 
   /* SECTION COMMON */
-  section { position: relative; z-index: 1; padding: clamp(60px, 12vh, 120px) clamp(16px, 4vw, 40px); }
+  section { position: relative; z-index: 1; padding: clamp(56px, 10vh, 110px) clamp(16px, 3.4vw, 34px); }
   .section-label {
     font-family: var(--font-mono); font-size: clamp(0.6rem, 1vw, 0.65rem);
     color: var(--accent); letter-spacing: 0.2em; text-transform: uppercase;
@@ -310,7 +322,7 @@
 
   /* SKILLS */
   #skills { background: var(--surface); }
-  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(clamp(150px, 25vw, 200px), 1fr)); gap: 1px; background: var(--border); }
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1px; background: var(--border); }
   .skill-cell {
     background: var(--surface);
     display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -342,7 +354,7 @@
     -webkit-text-stroke: 1px rgba(255,255,255,0.15);
     line-height: 1;
   }
-  .certs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(clamp(240px, 40vw, 280px), 1fr)); gap: 1px; background: var(--border); }
+  .certs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1px; background: var(--border); }
   .cert-card {
     background: var(--surface);
     padding: clamp(20px, 4vh, 28px); display: flex; flex-direction: column; justify-content: space-between;
@@ -543,6 +555,8 @@
     font-size: clamp(1rem, 2.5vw, 1.4rem);
     color: #888; /* Slightly dimmed until hover */
     transition: color 0.3s ease;
+    overflow-wrap: anywhere;
+    word-break: break-word;
   }
   .item-arrow { color: #444; transition: all 0.3s ease; }
 
@@ -566,8 +580,8 @@
   }
   .btn-resume-framed:hover { border-color: var(--accent); color: var(--accent); }
 
-  /* Mobile Fix */
-  @media (max-width: 992px) {
+  /* Laptop Fix */
+  @media (max-width: 1024px) {
     .nav-links { display: none; }
     .nav-status { display: none; }
     .mobile-nav-toggle { display: inline-flex; }
@@ -601,7 +615,8 @@
   /* MOBILE */
   @media (max-width: 1024px) {
     /* Laptop adjustments */
-    section { padding: clamp(50px, 10vh, 100px) clamp(16px, 4vw, 32px); }
+    section { padding: clamp(48px, 8vh, 90px) 20px; }
+    #hero { padding: clamp(84px, 12vh, 110px) 20px clamp(40px, 6vh, 56px); }
     .about-grid { gap: clamp(32px, 6vw, 60px); }
     .edu-item { grid-template-columns: clamp(50px, 12vw, 80px) 1fr; gap: clamp(16px, 3vw, 24px); }
     .certs-grid { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
@@ -610,23 +625,25 @@
   @media (max-width: 768px) {
     body { cursor: auto; }
     .cursor, .cursor-ring { display: none; }
+    #bg-canvas { display: none; }
     .container { padding: 0 16px; }
-    #hero { padding: clamp(80px, 12vh, 100px) 16px clamp(40px, 6vh, 50px); }
-    .hero-title { font-size: clamp(2.2rem, 14vw, 3.8rem); line-height: 1; }
+    #hero { padding: 84px 16px 34px; min-height: auto; }
+    .hero-title { font-size: clamp(2rem, 12vw, 3.2rem); line-height: 1; }
     .hero-scroll { display: none; }
-    section { padding: clamp(50px, 10vh, 80px) 16px; }
-    .section-title { margin-bottom: 40px; }
-    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    section { padding: 52px 16px; }
+    .section-title { margin-bottom: 28px; }
+    .about-grid { grid-template-columns: 1fr; gap: 28px; }
+    .about-photo-wrap { max-width: 420px; }
     .about-stats { grid-template-columns: 1fr; gap: 12px; }
     .edu-item { grid-template-columns: clamp(50px, 15vw, 70px) 1fr; gap: clamp(12px, 2vw, 18px); padding: clamp(16px, 2vh, 24px) 0; }
     .edu-badge { display: none; }
-    .skills-grid { grid-template-columns: repeat(auto-fit, minmax(clamp(120px, 20vw, 150px), 1fr)); }
-    .certs-grid { grid-template-columns: 1fr; }
+    .skills-grid { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+    .certs-grid { grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); }
     .cert-count { font-size: clamp(2.5rem, 8vw, 3.2rem); }
     .certs-header { flex-direction: column; align-items: flex-start; }
     .projects-cta { flex-direction: column; padding: clamp(20px, 4vh, 32px); align-items: stretch; }
     .cta-arrow { margin: 0 auto; }
-    #contact { padding: 80px 20px; }
+    #contact { padding: 56px 16px; }
     .contact-wrapper { grid-template-columns: 1fr; gap: clamp(24px, 4vh, 36px); }
     .contact-item {
       align-items: center;
@@ -646,8 +663,9 @@
   }
 
   @media (max-width: 480px) {
-    #hero { padding: clamp(60px, 10vh, 80px) 16px clamp(32px, 5vh, 40px); }
-    section { padding: clamp(40px, 8vh, 60px) 16px; }
+    .container { padding: 0 14px; }
+    #hero { padding: 76px 14px 26px; }
+    section { padding: 42px 14px; }
     .hero-tag { font-size: clamp(0.55rem, 0.9vw, 0.6rem); letter-spacing: 0.12em; }
     .hero-title { font-size: clamp(1.8rem, 12vw, 2.8rem); }
     .hero-cta { width: 100%; justify-content: center; }
@@ -661,6 +679,8 @@
     .cta-arrow { width: clamp(50px, 10vw, 60px); height: clamp(50px, 10vw, 60px); }
     .contact-wrapper { gap: clamp(20px, 3vh, 24px); }
     .contact-title-large { font-size: clamp(1.6rem, 5vw, 2rem); }
+    .skills-grid { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
+    .certs-grid { grid-template-columns: 1fr; }
     .btn-resume-framed { width: 100%; justify-content: center; }
     .blog-card { padding: clamp(18px, 3vh, 24px) 16px; }
     .blog-title { font-size: clamp(1.4rem, 4vw, 1.8rem); }
@@ -684,7 +704,6 @@
     .stat-num { font-size: clamp(1.4rem, 3vw, 1.8rem); }
     .container { padding: 0 12px; }
     .item-value { font-size: clamp(0.75rem, 1.5vw, 0.8rem); }
-  }
   }
 </style>
 </head>
@@ -1181,83 +1200,104 @@
 </div>
 
 <script>
-  // CURSOR
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isTouchOrSmall = window.matchMedia('(max-width: 768px), (pointer: coarse)').matches;
+
+  // CURSOR (desktop only)
   const cursor = document.getElementById('cursor');
   const ring = document.getElementById('cursor-ring');
-  let rx = 0, ry = 0, cx = 0, cy = 0;
-  document.addEventListener('mousemove', e => {
-    cx = e.clientX; cy = e.clientY;
-    cursor.style.left = cx + 'px'; cursor.style.top = cy + 'px';
-  });
-  function animRing() {
-    rx += (cx - rx) * 0.12; ry += (cy - ry) * 0.12;
-    ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
-    requestAnimationFrame(animRing);
-  }
-  animRing();
+  if (cursor && ring && !isTouchOrSmall && !prefersReducedMotion) {
+    let rx = 0, ry = 0, cx = 0, cy = 0;
+    document.addEventListener('mousemove', e => {
+      cx = e.clientX;
+      cy = e.clientY;
+      cursor.style.left = cx + 'px';
+      cursor.style.top = cy + 'px';
+    });
 
-  // THREE.JS-LIKE PARTICLE CANVAS
+    const animRing = () => {
+      rx += (cx - rx) * 0.12;
+      ry += (cy - ry) * 0.12;
+      ring.style.left = rx + 'px';
+      ring.style.top = ry + 'px';
+      requestAnimationFrame(animRing);
+    };
+    animRing();
+  } else {
+    if (cursor) cursor.style.display = 'none';
+    if (ring) ring.style.display = 'none';
+  }
+
+  // PARTICLE CANVAS (desktop only)
   const canvas = document.getElementById('bg-canvas');
-  const ctx = canvas.getContext('2d');
-  let W, H, particles = [];
+  if (canvas && !isTouchOrSmall && !prefersReducedMotion) {
+    const ctx = canvas.getContext('2d');
+    let W, H, particles = [];
 
-  function resize() {
-    W = canvas.width = window.innerWidth;
-    H = canvas.height = window.innerHeight;
-  }
-  resize();
-  window.addEventListener('resize', resize);
+    const resize = () => {
+      W = canvas.width = window.innerWidth;
+      H = canvas.height = window.innerHeight;
+    };
+    resize();
+    window.addEventListener('resize', resize);
 
-  class Particle {
-    constructor() { this.reset(); }
-    reset() {
-      this.x = Math.random() * W;
-      this.y = Math.random() * H;
-      this.vx = (Math.random() - 0.5) * 0.4;
-      this.vy = (Math.random() - 0.5) * 0.4;
-      this.r = Math.random() * 1.5 + 0.5;
-      this.a = Math.random() * 0.5 + 0.1;
-    }
-    update() {
-      this.x += this.vx; this.y += this.vy;
-      if (this.x < 0 || this.x > W || this.y < 0 || this.y > H) this.reset();
-    }
-    draw() {
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(200,255,0,${this.a})`;
-      ctx.fill();
-    }
-  }
-
-  const count = window.innerWidth < 768 ? 40 : 100;
-  for (let i = 0; i < count; i++) particles.push(new Particle());
-
-  function drawLines() {
-    for (let i = 0; i < particles.length; i++) {
-      for (let j = i + 1; j < particles.length; j++) {
-        const dx = particles[i].x - particles[j].x;
-        const dy = particles[i].y - particles[j].y;
-        const dist = Math.sqrt(dx*dx + dy*dy);
-        if (dist < 120) {
-          ctx.beginPath();
-          ctx.strokeStyle = `rgba(200,255,0,${0.08 * (1 - dist/120)})`;
-          ctx.lineWidth = 0.5;
-          ctx.moveTo(particles[i].x, particles[i].y);
-          ctx.lineTo(particles[j].x, particles[j].y);
-          ctx.stroke();
-        }
+    class Particle {
+      constructor() { this.reset(); }
+      reset() {
+        this.x = Math.random() * W;
+        this.y = Math.random() * H;
+        this.vx = (Math.random() - 0.5) * 0.4;
+        this.vy = (Math.random() - 0.5) * 0.4;
+        this.r = Math.random() * 1.5 + 0.5;
+        this.a = Math.random() * 0.5 + 0.1;
+      }
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        if (this.x < 0 || this.x > W || this.y < 0 || this.y > H) this.reset();
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(200,255,0,${this.a})`;
+        ctx.fill();
       }
     }
-  }
 
-  function animate() {
-    ctx.clearRect(0, 0, W, H);
-    particles.forEach(p => { p.update(); p.draw(); });
-    drawLines();
-    requestAnimationFrame(animate);
+    const count = 90;
+    for (let i = 0; i < count; i++) particles.push(new Particle());
+
+    const drawLines = () => {
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 120) {
+            ctx.beginPath();
+            ctx.strokeStyle = `rgba(200,255,0,${0.08 * (1 - dist / 120)})`;
+            ctx.lineWidth = 0.5;
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+    };
+
+    const animate = () => {
+      ctx.clearRect(0, 0, W, H);
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      drawLines();
+      requestAnimationFrame(animate);
+    };
+    animate();
+  } else if (canvas) {
+    canvas.style.display = 'none';
   }
-  animate();
 
   // SCROLL REVEAL
   const reveals = document.querySelectorAll('.reveal');
